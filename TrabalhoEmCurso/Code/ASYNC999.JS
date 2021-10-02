@@ -1,0 +1,54 @@
+anychart.onDocumentReady(function () {
+  stage = anychart.graphics.create("container");
+
+  var customTitle = anychart.standalones.title();
+  customTitle.text("Asynchronous/Synchronous Rendering");
+  customTitle.parentBounds(0, "50%", 100, 100);
+  customTitle.container(stage);
+  customTitle.draw();
+
+  charts = [];
+});
+
+function renderAsync() {
+  disposeCharts(charts);
+
+  // Set rendering mode to async.
+  createCharts(charts, true);
+}
+
+function renderSync() {
+  disposeCharts(charts);
+
+ // Set rendering mode to sync.
+ createCharts(charts, false);
+}
+
+function createCharts(charts, sync) {
+  for (var i = 0; i < 15; i++) {
+    for (var j = 2; j < 15; j++) {
+        pieChart = anychart.pie([
+                                 Math.random(),
+                                 Math.random(),
+                                 Math.random()
+                               ]);
+        pieChart.bounds(i * 10 + "%", j * 10 + "%", "10%", "10%");
+        pieChart.labels(false);
+        pieChart.legend(false);
+        pieChart.padding(0);
+        pieChart.margin(0);
+        pieChart.container(stage);
+
+        /* Set render mode:
+        true - async, false (default) - sync*/
+        pieChart.draw(sync);
+        charts.push(pieChart);
+    }
+  }
+}
+
+function disposeCharts(charts) {
+  for (var i = 0; i < charts.length; i++) {
+    charts[i].dispose();
+  }
+}

@@ -1,0 +1,1 @@
+let values = await Promise.all([coffee, tea, description]);

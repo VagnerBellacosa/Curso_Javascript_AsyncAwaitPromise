@@ -1,0 +1,1 @@
+hello().then(console.log)
